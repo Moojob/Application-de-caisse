@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Application De Caisse</title>
+</head>
+<body>
+    <header>
+        <form class="formulaire-de-transaction">
+            <!--La Sélection du type de la Transaction--> 
+        <div class="domaine">
+            <label for="Type:"></label>
+            <select id="type">
+                <option value="Débit">Débit</option>
+                <option value="Crédit">Crédit</option>
+            </select>
+        </div>
+             <!--La Saisie du Montant-->
+        <div class="domaine">
+            <label >Montant: </label>
+            <input type="number" id="montant">
+        </div>
+             <!--La destinataire-->
+        <div class="domaine">
+            <label>Qui:</label>
+            <input type="text" id="qui" >
+        </div>
+             <!--La Raison de la Transaction-->
+        <div class="domaine">
+            <label>Raison:</label>
+            <input type="text" id="raison" >
+        </div>
+             <!--L'Ajout de la Transaction-->
+        <button type="submit">Ajouter</button>
+    </form>
+    </header>
+
+    <div class="emballage">
+        <h1>CAISSE</h1>
+         <!--La Liste des Transactions-->
+         <ul class="listes-des-transactions"></ul>
+    </div>
+
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
