@@ -7,30 +7,42 @@ body{
     margin: 0 auto;
 }
 h1{
-    margin: 40px auto;
-    color: mediumvioletred;
+    margin: 10px;
+    color: rgb(155, 145, 151);
     text-align: center;
+    font-weight: bolder;
+}
+h3{
+    color: rgb(155, 145, 151);
+    font-weight: bolder;
+    margin-left: 10px;
+}
+ul{
+    padding: 0;
+    list-style-type:none;
 }
 li{
     padding: 6px 10px;
     bottom: 1px solid #eee;
     margin: 10px auto;
 }
-li.Dédit{
-    background-color: rgb(172, 228, 150);
+li.Credit {
+    background: rgb(172, 228, 150);
 }
-li.Crédit{
-    background-color: rgb(252, 118, 118);
+li.Debit{
+    background: rgb(252, 118, 118);
 }
-li h4.Débit {
+li h4.Credit {
     color: #197e0b;
     margin: 0;
     text-transform:capitalize ;
+    font-weight: bolder;
 }
-li h4.Crédit {
+li h4.Debit {
     color: #e20c0c;
     margin: 0;
     text-transform:capitalize ;
+    font-weight: bolder;
 }
 li p {
     color: #333;
@@ -38,8 +50,8 @@ li p {
 }
 header{
     background: #eee;
-    padding: 60px;
-    margin-top: 60px;
+    padding: 30px;
+    margin-top: 5px;
 }
 form{
     min-width: 960px;
@@ -61,12 +73,16 @@ input, select{
 .domaine{
     display: inline-block;
     margin: 0 10px;
+    font-weight: bolder;
+    border: 1 solid black;
 }
 button{
     color:#eee;
-    border: 0;
-    background:#0a1aff;
+    border: 1 solid black;
+    background:#1c1c24;
     padding: 6px;
     min-width: 80px;
     border-radius: 4px;
+    font-weight: bolder;
+
 }
