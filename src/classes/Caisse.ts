@@ -27,6 +27,9 @@ export class Caisse implements ISubject {
     getSolde() {
         return this.solde
     }
+    getEtatCompte() {
+        return this.solde
+    }
     AjoutTransaction(transaction: Transaction) {
         this.transaction.push(transaction)
         if (transaction.getType() === 'Debit') {
@@ -35,6 +38,19 @@ export class Caisse implements ISubject {
         } else {
             this.solde += transaction.getMontant()    
         } console.log("Solde : ", this.solde);
+        this.notifyObserver();
+    }
+
+    EtatCompte(transaction: Transaction) {
+        this.transaction.push(transaction)
+        if (this.solde < 0) {
+         console.log( 'DEBITEUR');  
+            
+        } else if (this.solde === 0){ 
+           console.log('NULL'); 
+        } else { 
+            console.log('CREDITEUR'); 
+         } 
         this.notifyObserver();
     }
 }

@@ -19,6 +19,13 @@ h1{
     margin-left: 10px;
     font-size: 1.3em;
 }
+.etats{
+  
+    color: rgb(155, 145, 151);
+    font-weight: bolder;
+    margin-left: 10px;
+    font-size: 1.2em;
+}
 #solde{
    
     color: rgb(0, 0, 0);
@@ -27,7 +34,15 @@ h1{
     font-size: 1.3em;
   
 }
-#container-solde{
+#etat{
+   
+   
+    font-weight: bold;
+    margin-left: 10px;
+    font-size: 1.2em;
+  
+}
+#container-solde, #container-etat{
     max-width: 800px;
     margin: 0 auto;
     background-color: rgb(236, 179, 236);
@@ -40,6 +55,12 @@ li{
     padding: 6px 10px;
     bottom: 1px solid #eee;
     margin: 10px auto;
+}
+span#etat.DEBITEUR{
+    color: #e20c0c;
+}
+ span#etat.CREDITEUR{
+    color: #197e0b;
 }
 li.Credit {
     background: rgb(172, 228, 150);

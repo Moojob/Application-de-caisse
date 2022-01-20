@@ -185,6 +185,11 @@ var Caisse = /*#__PURE__*/function () {
       return this.solde;
     }
   }, {
+    key: "getEtatCompte",
+    value: function getEtatCompte() {
+      return this.solde;
+    }
+  }, {
     key: "AjoutTransaction",
     value: function AjoutTransaction(transaction) {
       this.transaction.push(transaction);
@@ -198,12 +203,62 @@ var Caisse = /*#__PURE__*/function () {
       console.log("Solde : ", this.solde);
       this.notifyObserver();
     }
+  }, {
+    key: "EtatCompte",
+    value: function EtatCompte(transaction) {
+      this.transaction.push(transaction);
+
+      if (this.solde < 0) {
+        console.log('DEBITEUR');
+      } else if (this.solde === 0) {
+        console.log('NULL');
+      } else {
+        console.log('CREDITEUR');
+      }
+
+      this.notifyObserver();
+    }
   }]);
 
   return Caisse;
 }();
 
 exports.Caisse = Caisse;
+},{}],"classes/EtatDuCompte.ts":[function(require,module,exports) {
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Etat = void 0;
+
+var Etat = /*#__PURE__*/function () {
+  function Etat(caisse) {
+    _classCallCheck(this, Etat);
+
+    this.viewEtat = document.querySelector("#etat");
+    caisse.subscribe(this);
+  }
+
+  _createClass(Etat, [{
+    key: "update",
+    value: function update(caisse) {
+      // this.viewEtat.innerText = caisse.getEtatCompte();
+      this.viewEtat.innerText = caisse.getEtatCompte() <= 0 ? 'DEBITEUR' : 'CREDITEUR';
+      this.viewEtat.className = this.viewEtat.innerText;
+    }
+  }]);
+
+  return Etat;
+}();
+
+exports.Etat = Etat;
 },{}],"classes/Solde.ts":[function(require,module,exports) {
 "use strict";
 
@@ -291,6 +346,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var Caisse_1 = require("./classes/Caisse");
 
+var EtatDuCompte_1 = require("./classes/EtatDuCompte");
+
 var Solde_1 = require("./classes/Solde");
 
 var Transaction_1 = require("./classes/Transaction"); //Interception du formulaire
@@ -298,7 +355,8 @@ var Transaction_1 = require("./classes/Transaction"); //Interception du formulai
 
 var form = document.querySelector(".formulaire-de-transaction");
 var maCaisse = new Caisse_1.Caisse(0, []);
-var monSolde = new Solde_1.Solde(maCaisse); //Interception des Inputs du formulaire
+var monSolde = new Solde_1.Solde(maCaisse);
+var etatDeMonCompte = new EtatDuCompte_1.Etat(maCaisse); //Interception des Inputs du formulaire
 
 var type = document.querySelector("#type");
 var qui = document.querySelector('#qui');
@@ -309,6 +367,7 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
   var mesTransactions = new Transaction_1.Transaction(type.value, montant.valueAsNumber, qui.value, raison.value);
   maCaisse.AjoutTransaction(mesTransactions);
+  maCaisse.EtatCompte(mesTransactions);
 
   var render = function render(Tr, container) {
     var li = document.createElement("li");
@@ -330,7 +389,7 @@ form.addEventListener('submit', function (e) {
   raison.value = "";
   render(mesTransactions, ul);
 });
-},{"./classes/Caisse":"classes/Caisse.ts","./classes/Solde":"classes/Solde.ts","./classes/Transaction":"classes/Transaction.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./classes/Caisse":"classes/Caisse.ts","./classes/EtatDuCompte":"classes/EtatDuCompte.ts","./classes/Solde":"classes/Solde.ts","./classes/Transaction":"classes/Transaction.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -358,7 +417,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55643" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54598" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

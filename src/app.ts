@@ -1,4 +1,5 @@
 import { Caisse } from "./classes/Caisse";
+import { Etat } from "./classes/EtatDuCompte";
 import { Solde } from "./classes/Solde";
 import { Transaction } from "./classes/Transaction";
 
@@ -6,6 +7,7 @@ import { Transaction } from "./classes/Transaction";
 const form = document.querySelector(".formulaire-de-transaction") as HTMLFormElement;
 let maCaisse = new Caisse(0, []);
 let monSolde = new Solde(maCaisse);
+let etatDeMonCompte = new Etat(maCaisse);
 //Interception des Inputs du formulaire
 const type = document.querySelector("#type") as HTMLInputElement;
 const qui = document.querySelector('#qui') as HTMLInputElement;
@@ -23,6 +25,7 @@ form.addEventListener('submit', (e: Event) => {
       raison.value
   );
   maCaisse.AjoutTransaction(mesTransactions);
+  maCaisse.EtatCompte(mesTransactions);
   
   const render = (Tr:Transaction, container: HTMLUListElement) => {
     let li = document.createElement("li");

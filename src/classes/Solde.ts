@@ -10,5 +10,6 @@ export class Solde implements IObserver{
     }
     update(caisse : Caisse) {
         this.viewSolde.innerText = caisse.getSolde().toString();
+   
     }
 }
