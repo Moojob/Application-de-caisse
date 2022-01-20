@@ -1,30 +1,37 @@
-import { caisse } from "./classses/caisse.js";
-import { Transaction } from "./classses/transaction.js";
+import { Caisse } from "./classes/Caisse";
+import { Solde } from "./classes/Solde";
+import { Transaction } from "./classes/Transaction";
 //Interception du formulaire
 const form = document.querySelector(".formulaire-de-transaction") as HTMLFormElement;
-let maCaisse = new caisse(0, []);
+let maCaisse = new Caisse(0, []);
+let monSolde = new Solde(maCaisse);
 //Interception des Inputs du formulaire
 const type = document.querySelector("#type") as HTMLInputElement;
 const qui = document.querySelector('#qui') as HTMLInputElement;
 const montant = document.querySelector("#montant") as HTMLInputElement;
 const raison = document.querySelector("#raison") as HTMLInputElement;
-//Interception du ul
-const ul = document.querySelector("ul")!;
+
 
 form.addEventListener('submit', (e: Event) => {
     e.preventDefault();
-    let maTransaction = new Transaction(
-    type.value,
-    montant.valueAsNumber,
-    qui.value,
-    raison.value        
-    )
-    maCaisse.AjoutTransaction(maTransaction);
-    //console.log("Solde : ", maCaisse.getSolde());
-    //console.log("Transaction : ", maCaisse.getTransaction());
-    render(maTransaction, ul);
 
-    // //Création d'élèments li
+    let maTransaction = new Transaction(
+        type.value,
+        montant.valueAsNumber,
+        qui.value,
+        raison.value
+    );
+  
+    maCaisse.AjoutTransaction(maTransaction);
+    
+
+    
+   
+   
+    //console.log("Transaction : ", maCaisse.getTransaction());
+    // render(maTransaction, ul);
+   
+      // //Création d'élèments li
     // const li = document.createElement("li")
     // //Attribution de la classe débit ou crédit au li
     // li.className = type.value;
@@ -47,16 +54,3 @@ form.addEventListener('submit', (e: Event) => {
     // ul.append(li);
 
 });
-const render = (Tr: Transaction, container: HTMLUListElement): void => {
-    let li = document.createElement("li") 
-    let h4 = document.createElement("h4") 
-    let p = document.createElement("p") 
-    h4.innerText = Tr.getType() === 'Debit' ? 'Debit' : 'Credit'
-    h4.className = Tr.getType()
-    li.className = Tr.getType()
-    p.innerText = Tr.text()
-    li.append(h4)
-    li.append(p)
-    container.append(li)
-    
-}
