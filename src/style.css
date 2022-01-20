@@ -3,7 +3,7 @@ body{
     font-family: Roboto serif;
 }
 .emballage{
-    max-width: 960px;
+    max-width: 800px;
     margin: 0 auto;
 }
 h1{
@@ -13,16 +13,24 @@ h1{
     font-weight: bolder;
 }
 .soldes{
+  
     color: rgb(155, 145, 151);
     font-weight: bolder;
     margin-left: 10px;
     font-size: 1.3em;
 }
-#soldes{
+#solde{
+   
     color: rgb(0, 0, 0);
     font-weight: bold;
     margin-left: 10px;
-    font-size: 3em;
+    font-size: 1.3em;
+  
+}
+#container-solde{
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgb(236, 179, 236);
 }
 ul{
     padding: 0;

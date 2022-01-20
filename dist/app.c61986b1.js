@@ -304,31 +304,31 @@ var type = document.querySelector("#type");
 var qui = document.querySelector('#qui');
 var montant = document.querySelector("#montant");
 var raison = document.querySelector("#raison");
+var ul = document.querySelector("ul");
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-  var maTransaction = new Transaction_1.Transaction(type.value, montant.valueAsNumber, qui.value, raison.value);
-  maCaisse.AjoutTransaction(maTransaction); //console.log("Transaction : ", maCaisse.getTransaction());
-  // render(maTransaction, ul);
-  // //Création d'élèments li
-  // const li = document.createElement("li")
-  // //Attribution de la classe débit ou crédit au li
-  // li.className = type.value;
-  // //Création d'élèments h4
-  // const h4 = document.createElement('h4');
-  // //h4 va contenir soit débit soit crédit
-  // h4.innerText = type.value;
-  // //Attribution de la classe débit ou crédit à h4
-  // h4.className = type.value;
-  // //Ajouter h4 au li
-  // li.append(h4)
-  // //Création d'élèments p
-  // const p = document.createElement('p');
-  // //p va contenir le texte de la logique suivante
-  // p.innerText = `${type.value === 'Débit' ? 'Retrait' : 'Dépot'} de ${montant.value}F par ${qui.value} suite à ${raison.value}`;
-  // //Ajouter p au li
-  // li.append(p);
-  // //Ajouter li au ul
-  // ul.append(li);
+  var mesTransactions = new Transaction_1.Transaction(type.value, montant.valueAsNumber, qui.value, raison.value);
+  maCaisse.AjoutTransaction(mesTransactions);
+
+  var render = function render(Tr, container) {
+    var li = document.createElement("li");
+    var h4 = document.createElement("h4");
+    var p = document.createElement("p");
+    h4.innerText = Tr.getType() === 'Debit' ? 'Debit' : 'Credit';
+    h4.className = Tr.getType();
+    li.className = Tr.getType();
+    p.innerText = Tr.text();
+    li.append(h4);
+    li.append(p);
+    ul.append(li);
+    container.append(li);
+  };
+
+  var reset = 0;
+  montant.valueAsNumber = reset;
+  qui.value = "";
+  raison.value = "";
+  render(mesTransactions, ul);
 });
 },{"./classes/Caisse":"classes/Caisse.ts","./classes/Solde":"classes/Solde.ts","./classes/Transaction":"classes/Transaction.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -358,7 +358,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64230" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55643" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
