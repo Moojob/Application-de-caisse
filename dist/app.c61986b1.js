@@ -259,6 +259,56 @@ var Etat = /*#__PURE__*/function () {
 }();
 
 exports.Etat = Etat;
+},{}],"classes/NbreTransaction.ts":[function(require,module,exports) {
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.NbreTransaction = void 0;
+
+var NbreTransaction = /*#__PURE__*/function () {
+  function NbreTransaction(caisse) {
+    _classCallCheck(this, NbreTransaction);
+
+    this.htmlNbreDebitView = document.querySelector('#nbreDeDebit');
+    this.htmlNbreCreditView = document.querySelector('#nbreDeCredit');
+    caisse.subscribe(this);
+  }
+
+  _createClass(NbreTransaction, [{
+    key: "update",
+    value: function update(caisse) {
+      var comptons = caisse.getTransaction();
+      var NbreTotalDebit = 0;
+      var NbreTotalCredit = 0;
+      NbreTotalDebit = comptons.filter(function (tr) {
+        return tr.getType() === "Debit";
+      }).length;
+      NbreTotalCredit = comptons.filter(function (tr) {
+        return tr.getType() === "Credit";
+      }).length; // for (const tr of comptons) {
+      //     if (tr.getType() === 'Debit') {
+      //         NbreTotalDebit ++
+      //     } else {
+      //         NbreTotalCredit++
+      //     }
+
+      this.htmlNbreDebitView.innerText = NbreTotalDebit.toString();
+      this.htmlNbreCreditView.innerText = NbreTotalCredit.toString();
+    }
+  }]);
+
+  return NbreTransaction;
+}();
+
+exports.NbreTransaction = NbreTransaction;
 },{}],"classes/Solde.ts":[function(require,module,exports) {
 "use strict";
 
@@ -348,15 +398,19 @@ var Caisse_1 = require("./classes/Caisse");
 
 var EtatDuCompte_1 = require("./classes/EtatDuCompte");
 
+var NbreTransaction_1 = require("./classes/NbreTransaction");
+
 var Solde_1 = require("./classes/Solde");
 
 var Transaction_1 = require("./classes/Transaction"); //Interception du formulaire
 
 
-var form = document.querySelector(".formulaire-de-transaction");
+var form = document.querySelector(".formulaire-de-transaction"); //Instanciations
+
 var maCaisse = new Caisse_1.Caisse(0, []);
 var monSolde = new Solde_1.Solde(maCaisse);
-var etatDeMonCompte = new EtatDuCompte_1.Etat(maCaisse); //Interception des Inputs du formulaire
+var etatDeMonCompte = new EtatDuCompte_1.Etat(maCaisse);
+var nbreDeTransaction = new NbreTransaction_1.NbreTransaction(maCaisse); //Interception des Inputs du formulaire
 
 var type = document.querySelector("#type");
 var qui = document.querySelector('#qui');
@@ -389,7 +443,7 @@ form.addEventListener('submit', function (e) {
   raison.value = "";
   render(mesTransactions, ul);
 });
-},{"./classes/Caisse":"classes/Caisse.ts","./classes/EtatDuCompte":"classes/EtatDuCompte.ts","./classes/Solde":"classes/Solde.ts","./classes/Transaction":"classes/Transaction.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./classes/Caisse":"classes/Caisse.ts","./classes/EtatDuCompte":"classes/EtatDuCompte.ts","./classes/NbreTransaction":"classes/NbreTransaction.ts","./classes/Solde":"classes/Solde.ts","./classes/Transaction":"classes/Transaction.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -417,7 +471,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54598" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55864" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

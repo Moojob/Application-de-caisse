@@ -1,13 +1,17 @@
 import { Caisse } from "./classes/Caisse";
 import { Etat } from "./classes/EtatDuCompte";
+import { NbreTransaction } from "./classes/NbreTransaction";
 import { Solde } from "./classes/Solde";
 import { Transaction } from "./classes/Transaction";
 
 //Interception du formulaire
 const form = document.querySelector(".formulaire-de-transaction") as HTMLFormElement;
+//Instanciations
 let maCaisse = new Caisse(0, []);
 let monSolde = new Solde(maCaisse);
 let etatDeMonCompte = new Etat(maCaisse);
+let nbreDeTransaction = new NbreTransaction(maCaisse);
+
 //Interception des Inputs du formulaire
 const type = document.querySelector("#type") as HTMLInputElement;
 const qui = document.querySelector('#qui') as HTMLInputElement;
