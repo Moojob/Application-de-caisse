@@ -5,16 +5,14 @@ export class RapportsTransactions implements IObserver {
   private htmlRapportsContainer: HTMLTableElement;
 
   constructor(caisse: Caisse) {
-    this.htmlRapportsContainer = document.querySelector(
-      "#transactionParEmploye"
-    )!;
+    this.htmlRapportsContainer = document.querySelector("#transactionParEmploye")!;
     caisse.subscribe(this);
   }
 
   update(caisse: Caisse): void {
     let transactions = caisse.getTransaction();
     let rapportsArray = [];
-    for (let tr of transactions) {
+    for (const tr of transactions) {
       let how = rapportsArray.filter((e) => e.name === tr.otherText()).length;
       if (how === 0) {
         let employee = {
@@ -28,16 +26,18 @@ export class RapportsTransactions implements IObserver {
           (element) => element.name === tr.otherText()
         )
         if (tr.getType() === "Debit") {
-          rapportsArray[index].debit += tr.getMontant();
+          rapportsArray[index].debit+=tr.getMontant(); 
+        
         } else {
-          rapportsArray[index].credit += tr.getMontant();
+          rapportsArray[index].credit+= tr.getMontant();
+
         }
       }
     }
     this.htmlRapportsContainer.innerHTML = `<tr>
         <th>PERSONNELS</th>
-        <th>DEBIT</th>
         <th>CREDIT</th>
+        <th>DEBIT</th>
       </tr>`;
     for (let rapport of rapportsArray) {
       let nom = document.createElement("td");

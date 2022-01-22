@@ -61,7 +61,7 @@ span#etat.DEBITEUR, td.Debit{
     font-weight: bold;
   
 }
- span#etat.CREDITEUR, td.Credit{
+ span#etat.CREDITEUR,  td.Credit{
     color: red;
     font-weight: bold;
 }

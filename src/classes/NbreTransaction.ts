@@ -15,7 +15,7 @@ export class NbreTransaction implements IObserver {
     
     update(caisse: Caisse): void {
 
-        let compteur = caisse.getTransaction()
+      
        
         var NbreTotalDebit = caisse.getNbreDebit()
         var NbreTotalCredit = caisse.getNbreCredit()

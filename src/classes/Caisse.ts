@@ -3,9 +3,7 @@ import { ISubject } from "../interfaces/Subject"
 import { Transaction } from "./Transaction"
 
 export class Caisse implements ISubject {
-    static getTransaction() {
-      
-    }
+  
     private NbreDebit = 0
     private NbreCredit = 0
     private observers: IObserver[] = [];
@@ -47,18 +45,18 @@ export class Caisse implements ISubject {
         this.notifyObserver();
     }
 
-    EtatCompte(transaction: Transaction) {
-        this.transaction.push(transaction)
-        if (this.solde < 0) {
-         console.log( 'CREDITEUR');  
+    // EtatCompte(transaction: Transaction) {
+    //     this.transaction.push(transaction)
+    //     if (this.solde < 0) {
+    //      console.log( 'CREDITEUR');  
             
-        } else if (this.solde === 0){ 
-           console.log('NULL'); 
-        } else { 
-            console.log('DEBITEUR'); 
-         } 
-        this.notifyObserver();
-    }
+    //     } else if (this.solde === 0){ 
+    //        console.log('NULL'); 
+    //     } else { 
+    //         console.log('DEBITEUR'); 
+    //      } 
+    //     this.notifyObserver();
+    // }
     getNbreDebit() {
         return this.NbreDebit
     }

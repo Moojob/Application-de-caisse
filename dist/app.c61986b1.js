@@ -206,22 +206,18 @@ var Caisse = /*#__PURE__*/function () {
 
       console.log("Solde : ", this.solde);
       this.notifyObserver();
-    }
-  }, {
-    key: "EtatCompte",
-    value: function EtatCompte(transaction) {
-      this.transaction.push(transaction);
+    } // EtatCompte(transaction: Transaction) {
+    //     this.transaction.push(transaction)
+    //     if (this.solde < 0) {
+    //      console.log( 'CREDITEUR');  
+    //     } else if (this.solde === 0){ 
+    //        console.log('NULL'); 
+    //     } else { 
+    //         console.log('DEBITEUR'); 
+    //      } 
+    //     this.notifyObserver();
+    // }
 
-      if (this.solde < 0) {
-        console.log('CREDITEUR');
-      } else if (this.solde === 0) {
-        console.log('NULL');
-      } else {
-        console.log('DEBITEUR');
-      }
-
-      this.notifyObserver();
-    }
   }, {
     key: "getNbreDebit",
     value: function getNbreDebit() {
@@ -232,9 +228,6 @@ var Caisse = /*#__PURE__*/function () {
     value: function getNbreCredit() {
       return this.NbreCredit;
     }
-  }], [{
-    key: "getTransaction",
-    value: function getTransaction() {}
   }]);
 
   return Caisse;
@@ -309,7 +302,6 @@ var NbreTransaction = /*#__PURE__*/function () {
   _createClass(NbreTransaction, [{
     key: "update",
     value: function update(caisse) {
-      var compteur = caisse.getTransaction();
       var NbreTotalDebit = caisse.getNbreDebit();
       var NbreTotalCredit = caisse.getNbreCredit(); //     if (NbreTotalDebit !== 0 ) {
       //           NbreTotalDebit = (compteur.filter((tr) => tr.getType() === "Debit").length); 
@@ -392,7 +384,7 @@ var RapportsTransactions = /*#__PURE__*/function () {
               return element.name === tr.otherText();
             });
 
-            if (tr.getType() === "Credit") {
+            if (tr.getType() === "Debit") {
               rapportsArray[index].debit += tr.getMontant();
             } else {
               rapportsArray[index].credit += tr.getMontant();
@@ -409,7 +401,7 @@ var RapportsTransactions = /*#__PURE__*/function () {
         _iterator.f();
       }
 
-      this.htmlRapportsContainer.innerHTML = "<tr>\n        <th>PERSONNELS</th>\n        <th>DEBIT</th>\n        <th>CREDIT</th>\n      </tr>";
+      this.htmlRapportsContainer.innerHTML = "<tr>\n        <th>PERSONNELS</th>\n        <th>CREDIT</th>\n        <th>DEBIT</th>\n      </tr>";
 
       for (var _i = 0, _rapportsArray = rapportsArray; _i < _rapportsArray.length; _i++) {
         var rapport = _rapportsArray[_i];
@@ -499,7 +491,7 @@ var Transaction = /*#__PURE__*/function () {
   }, {
     key: "otherText",
     value: function otherText() {
-      return "".concat(this.qui);
+      return this.qui;
     }
   }, {
     key: "getMontant",
@@ -558,7 +550,7 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
   var mesTransactions = new Transaction_1.Transaction(type.value, montant.valueAsNumber, qui.value, raison.value);
   maCaisse.AjoutTransaction(mesTransactions);
-  maCaisse.EtatCompte(mesTransactions);
+  maCaisse.getEtatCompte();
 
   var render = function render(Tr, container) {
     var li = document.createElement("li");
@@ -613,7 +605,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63559" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52086" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
