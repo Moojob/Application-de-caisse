@@ -143,6 +143,8 @@ var Caisse = /*#__PURE__*/function () {
 
     this.solde = solde;
     this.transaction = transaction;
+    this.NbreDebit = 0;
+    this.NbreCredit = 0;
     this.observers = [];
   }
 
@@ -195,9 +197,11 @@ var Caisse = /*#__PURE__*/function () {
       this.transaction.push(transaction);
 
       if (transaction.getType() === 'Debit') {
-        this.solde -= transaction.getMontant();
-      } else {
         this.solde += transaction.getMontant();
+        this.NbreDebit++;
+      } else {
+        this.solde -= transaction.getMontant();
+        this.NbreCredit++;
       }
 
       console.log("Solde : ", this.solde);
@@ -209,15 +213,28 @@ var Caisse = /*#__PURE__*/function () {
       this.transaction.push(transaction);
 
       if (this.solde < 0) {
-        console.log('DEBITEUR');
+        console.log('CREDITEUR');
       } else if (this.solde === 0) {
         console.log('NULL');
       } else {
-        console.log('CREDITEUR');
+        console.log('DEBITEUR');
       }
 
       this.notifyObserver();
     }
+  }, {
+    key: "getNbreDebit",
+    value: function getNbreDebit() {
+      return this.NbreDebit;
+    }
+  }, {
+    key: "getNbreCredit",
+    value: function getNbreCredit() {
+      return this.NbreCredit;
+    }
+  }], [{
+    key: "getTransaction",
+    value: function getTransaction() {}
   }]);
 
   return Caisse;
@@ -249,9 +266,16 @@ var Etat = /*#__PURE__*/function () {
   _createClass(Etat, [{
     key: "update",
     value: function update(caisse) {
+      if (caisse.getEtatCompte() < 0) {
+        this.viewEtat.innerText = 'CREDITEUR';
+      } else if (caisse.getEtatCompte() === 0) {
+        this.viewEtat.innerText = 'NUL';
+      } else {
+        this.viewEtat.innerText = 'DEBITEUR';
+      }
+
+      this.viewEtat.className = this.viewEtat.innerText; // this.viewEtat.innerText = caisse.getEtatCompte() < 0 ? 'DEBITEUR' : 'CREDITEUR')
       // this.viewEtat.innerText = caisse.getEtatCompte();
-      this.viewEtat.innerText = caisse.getEtatCompte() <= 0 ? 'DEBITEUR' : 'CREDITEUR';
-      this.viewEtat.className = this.viewEtat.innerText;
     }
   }]);
 
@@ -285,19 +309,22 @@ var NbreTransaction = /*#__PURE__*/function () {
   _createClass(NbreTransaction, [{
     key: "update",
     value: function update(caisse) {
-      var comptons = caisse.getTransaction();
-      var NbreTotalDebit = 0;
-      var NbreTotalCredit = 0;
-      NbreTotalDebit = comptons.filter(function (tr) {
-        return tr.getType() === "Debit";
-      }).length;
-      NbreTotalCredit = comptons.filter(function (tr) {
-        return tr.getType() === "Credit";
-      }).length; // for (const tr of comptons) {
-      //     if (tr.getType() === 'Debit') {
-      //         NbreTotalDebit ++
+      var compteur = caisse.getTransaction();
+      var NbreTotalDebit = caisse.getNbreDebit();
+      var NbreTotalCredit = caisse.getNbreCredit(); //     if (NbreTotalDebit !== 0 ) {
+      //           NbreTotalDebit = (compteur.filter((tr) => tr.getType() === "Debit").length); 
       //     } else {
-      //         NbreTotalCredit++
+      //     }
+      //     if (NbreTotalCredit !== 0 ) {
+      //         NbreTotalCredit = (compteur.filter((tr) => tr.getType() === "Debit").length); 
+      //   } else {
+      //   }
+      //  for (let tr of compteur) {
+      //         if (tr.getType() === 'Debit') {
+      //         NbreTotalDebit++
+      //         } else {
+      //          NbreTotalCredit++
+      //         }
       //     }
 
       this.htmlNbreDebitView.innerText = NbreTotalDebit.toString();
@@ -309,6 +336,104 @@ var NbreTransaction = /*#__PURE__*/function () {
 }();
 
 exports.NbreTransaction = NbreTransaction;
+},{}],"classes/RapportsTransactions.ts":[function(require,module,exports) {
+"use strict";
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RapportsTransactions = void 0;
+
+var RapportsTransactions = /*#__PURE__*/function () {
+  function RapportsTransactions(caisse) {
+    _classCallCheck(this, RapportsTransactions);
+
+    this.htmlRapportsContainer = document.querySelector("#transactionParEmploye");
+    caisse.subscribe(this);
+  }
+
+  _createClass(RapportsTransactions, [{
+    key: "update",
+    value: function update(caisse) {
+      var transactions = caisse.getTransaction();
+      var rapportsArray = [];
+
+      var _iterator = _createForOfIteratorHelper(transactions),
+          _step;
+
+      try {
+        var _loop = function _loop() {
+          var tr = _step.value;
+          var how = rapportsArray.filter(function (e) {
+            return e.name === tr.otherText();
+          }).length;
+
+          if (how === 0) {
+            var employee = {
+              name: tr.otherText(),
+              debit: tr.getType() === "Debit" ? tr.getMontant() : 0,
+              credit: tr.getType() === "Credit" ? tr.getMontant() : 0
+            };
+            rapportsArray.push(employee);
+          } else {
+            var index = rapportsArray.findIndex(function (element) {
+              return element.name === tr.otherText();
+            });
+
+            if (tr.getType() === "Credit") {
+              rapportsArray[index].debit += tr.getMontant();
+            } else {
+              rapportsArray[index].credit += tr.getMontant();
+            }
+          }
+        };
+
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          _loop();
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      this.htmlRapportsContainer.innerHTML = "<tr>\n        <th>PERSONNELS</th>\n        <th>DEBIT</th>\n        <th>CREDIT</th>\n      </tr>";
+
+      for (var _i = 0, _rapportsArray = rapportsArray; _i < _rapportsArray.length; _i++) {
+        var rapport = _rapportsArray[_i];
+        var nom = document.createElement("td");
+        var CrediT = document.createElement("td");
+        CrediT.className = 'Credit';
+        var DebiT = document.createElement("td");
+        DebiT.className = 'Debit';
+        nom.innerText = rapport.name;
+        CrediT.innerText = rapport.credit.toString();
+        DebiT.innerText = rapport.debit.toString();
+        var tr = document.createElement("tr");
+        tr.append(nom);
+        tr.append(CrediT);
+        tr.append(DebiT);
+        this.htmlRapportsContainer.append(tr);
+      }
+    }
+  }]);
+
+  return RapportsTransactions;
+}();
+
+exports.RapportsTransactions = RapportsTransactions;
 },{}],"classes/Solde.ts":[function(require,module,exports) {
 "use strict";
 
@@ -372,6 +497,11 @@ var Transaction = /*#__PURE__*/function () {
       return "".concat(this.montant, "F ont \xE9t\xE9 ").concat(this.type === "Debit" ? "Retrait" : "Déposé", " par ").concat(this.qui, " suite \xE0 ").concat(this.raison);
     }
   }, {
+    key: "otherText",
+    value: function otherText() {
+      return "".concat(this.qui);
+    }
+  }, {
     key: "getMontant",
     value: function getMontant() {
       return this.montant;
@@ -400,17 +530,24 @@ var EtatDuCompte_1 = require("./classes/EtatDuCompte");
 
 var NbreTransaction_1 = require("./classes/NbreTransaction");
 
+var RapportsTransactions_1 = require("./classes/RapportsTransactions");
+
 var Solde_1 = require("./classes/Solde");
 
 var Transaction_1 = require("./classes/Transaction"); //Interception du formulaire
 
 
-var form = document.querySelector(".formulaire-de-transaction"); //Instanciations
+var form = document.querySelector(".formulaire-de-transaction"); //Interception du button buttonViewPersonelTransaction
+
+var buttonViewPersonelTransaction = document.querySelector('.buttonViewPersonelTransaction'); //Interception du div container-rapportTransaction
+
+var containerRapportTransactions = document.querySelector('.containerRapportTransaction'); //Instanciations
 
 var maCaisse = new Caisse_1.Caisse(0, []);
 var monSolde = new Solde_1.Solde(maCaisse);
 var etatDeMonCompte = new EtatDuCompte_1.Etat(maCaisse);
-var nbreDeTransaction = new NbreTransaction_1.NbreTransaction(maCaisse); //Interception des Inputs du formulaire
+var nbreDeTransaction = new NbreTransaction_1.NbreTransaction(maCaisse);
+var rapportsTransactions = new RapportsTransactions_1.RapportsTransactions(maCaisse); //Interception des Inputs du formulaire
 
 var type = document.querySelector("#type");
 var qui = document.querySelector('#qui');
@@ -443,7 +580,12 @@ form.addEventListener('submit', function (e) {
   raison.value = "";
   render(mesTransactions, ul);
 });
-},{"./classes/Caisse":"classes/Caisse.ts","./classes/EtatDuCompte":"classes/EtatDuCompte.ts","./classes/NbreTransaction":"classes/NbreTransaction.ts","./classes/Solde":"classes/Solde.ts","./classes/Transaction":"classes/Transaction.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+buttonViewPersonelTransaction.addEventListener('click', function () {
+  if (containerRapportTransactions.classList.contains('apparition')) {
+    containerRapportTransactions.classList.remove('apparition');
+  } else if (containerRapportTransactions.classList.contains('apparition')) {} else containerRapportTransactions.classList.toggle('apparition');
+});
+},{"./classes/Caisse":"classes/Caisse.ts","./classes/EtatDuCompte":"classes/EtatDuCompte.ts","./classes/NbreTransaction":"classes/NbreTransaction.ts","./classes/RapportsTransactions":"classes/RapportsTransactions.ts","./classes/Solde":"classes/Solde.ts","./classes/Transaction":"classes/Transaction.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -471,7 +613,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55864" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63559" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

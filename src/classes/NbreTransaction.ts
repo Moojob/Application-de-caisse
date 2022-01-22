@@ -14,19 +14,30 @@ export class NbreTransaction implements IObserver {
     
     
     update(caisse: Caisse): void {
-        let comptons = caisse.getTransaction()
-        let NbreTotalDebit = 0;
-        let NbreTotalCredit = 0;
+
+        let compteur = caisse.getTransaction()
+       
+        var NbreTotalDebit = caisse.getNbreDebit()
+        var NbreTotalCredit = caisse.getNbreCredit()
         
-        NbreTotalDebit = comptons.filter((tr) => tr.getType() === "Debit").length
-        NbreTotalCredit = comptons.filter((tr)=>tr.getType() === "Credit").length
-        // for (const tr of comptons) {
-        //     if (tr.getType() === 'Debit') {
-        //         NbreTotalDebit ++
-        //     } else {
-        //         NbreTotalCredit++
-        //     }
+    //     if (NbreTotalDebit !== 0 ) {
+    //           NbreTotalDebit = (compteur.filter((tr) => tr.getType() === "Debit").length); 
+    //     } else {
+              
+    //     }
+    //     if (NbreTotalCredit !== 0 ) {
+    //         NbreTotalCredit = (compteur.filter((tr) => tr.getType() === "Debit").length); 
+    //   } else {
+            
+    //   }
+    //  for (let tr of compteur) {
+    //         if (tr.getType() === 'Debit') {
+    //         NbreTotalDebit++
+    //         } else {
+    //          NbreTotalCredit++
+    //         }
+    //     }
         this.htmlNbreDebitView.innerText = NbreTotalDebit.toString();
         this.htmlNbreCreditView.innerText = NbreTotalCredit.toString();
-        }
+    }
 }

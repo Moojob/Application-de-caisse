@@ -1,68 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
     <title>Application De Caisse</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <form class="formulaire-de-transaction" id="transactionForm">
-            <!--La Sélection du type de la Transaction--> 
+      <form class="formulaire-de-transaction" id="transactionForm">
+        <!--La Sélection du type de la Transaction-->
         <div class="domaine">
-            <label for="Type:"></label>
-            <select id="type">
-                <option value="Debit">Débit</option>
-                <option value="Credit">Crédit</option>
-            </select>
+          <label for="Type:"></label>
+          <select id="type">
+            <option value="Debit">Débit</option>
+            <option value="Credit">Crédit</option>
+          </select>
         </div>
-             <!--La Saisie du Montant-->
+        <!--La Saisie du Montant-->
         <div class="domaine">
-            <label >Montant: </label>
-            <input type="number" id="montant" name="montant">
+          <label>Montant: </label>
+          <input type="number" id="montant" name="montant" required />
         </div>
-             <!--La destinataire-->
+        <!--La destinataire-->
         <div class="domaine">
-            <label>Qui:</label>
-            <input type="text" id="qui" >
+          <label>Qui:</label>
+          <input type="text" id="qui" required />
         </div>
-             <!--La Raison de la Transaction-->
+        <!--La Raison de la Transaction-->
         <div class="domaine">
-            <label>Raison:</label>
-            <input type="text" id="raison" >
+          <label>Raison:</label>
+          <input type="text" id="raison" required />
         </div>
-             <!--L'Ajout de la Transaction-->
+        <!--L'Ajout de la Transaction-->
         <button type="submit">Ajouter</button>
-    </form>
+      </form>
     </header>
 
     <div class="emballage">
-        <h1>GESTION DE LA CAISSE</h1>
-         <!--La Liste des Transactions-->
-         <ul class="listes-des-transactions"></ul>
+      <h1>GESTION DE LA CAISSE</h1>
+      <!--La Liste des Transactions-->
+
+      <ul class="listes-des-transactions"></ul>
     </div>
-  
+    <!-- Le Solde -->
 
     <div id="container-solde">
-       <span class="soldes">SOLDE: </span> <span id="solde"></span>
+      <span class="soldes">SOLDE: </span> <span id="solde"></span>
     </div>
+
+    <!-- Le Nombre Total d'Opération De Débit Effectué -->
+
+    <div id="container-nbreTotalDebit">
+      <span class="nbreDeDebits">NOMBRE DE DEBIT: </span>
+      <span id="nbreDeDebit"></span>
+    </div>
+    <!-- Le Nombre Total d'Opération De Débit Effectué -->
+
+    <div id="container-nbreTotalCredit">
+      <span class="nbreDeCredits">NOMBRE DE CREDIT: </span>
+      <span id="nbreDeCredit"></span>
+    </div>
+
+    <!-- L'Etat Actuel Du Compte -->
     <div id="container-etat">
-        <span class="etats">ETAT DU COMPTE: </span> <span id="etat"></span>
+      <span class="etats">ETAT DU COMPTE: </span> <span id="etat"></span>
     </div>
-    <div id="container-nbreTransaction">
-        <table>
-            <tr>
-                <td>DEBIT</td>
-                <td>CREDIT</td>
-            </tr>
-            <tr>
-                 <td id="nbreDeDebit"></td>
-                 <td id="nbreDeCredit"></td>
-             </tr>
-         </table>
+
+    <div id="container-buttons">
+     Aimerez-vous voir le rapport des transactions de votre personnel ?
+        <button class="buttonViewPersonelTransaction">Rapports</button>
     </div>
+
+    <div class="containerRapportTransaction">
+     
+      <table id="transactionParEmploye">
+        <h3>Rapport des transactions des employé(e)s</h3>
+        <!-- <tr>
+          <td>PERSONNELS</td>
+          <td>DEBIT</td>
+          <td>CREDIT</td>
+        </tr> -->
+      </table>
+    </div>
+
+   
     <script type="module" src="app.ts"></script>
-</body>
+  </body>
 </html>

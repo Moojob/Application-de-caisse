@@ -8,8 +8,17 @@ export class Etat implements IObserver{
         caisse.subscribe(this)
     }
     update(caisse : Caisse) {
-        // this.viewEtat.innerText = caisse.getEtatCompte();
-        this.viewEtat.innerText = caisse.getEtatCompte() <=0 ? 'DEBITEUR' : 'CREDITEUR';
+       
+       if (caisse.getEtatCompte() < 0 ) {
+           this.viewEtat.innerText = 'CREDITEUR'
+       }else if (caisse.getEtatCompte() === 0) {
+           this.viewEtat.innerText = 'NUL'
+       } else {
+           this.viewEtat.innerText = 'DEBITEUR'
+        }
         this.viewEtat.className = this.viewEtat.innerText;
+       
+        // this.viewEtat.innerText = caisse.getEtatCompte() < 0 ? 'DEBITEUR' : 'CREDITEUR')
+         // this.viewEtat.innerText = caisse.getEtatCompte();
     }
 }

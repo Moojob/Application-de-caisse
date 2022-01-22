@@ -8,10 +8,14 @@ export class Transaction {
     text() {
         return `${this.montant}F ont été ${this.type === "Debit" ? "Retrait" : "Déposé"} par ${this.qui} suite à ${this.raison}`
     }
+    otherText() {
+        return `${this.qui}`
+    }
     getMontant() {
        return  this.montant
     }
     getType() {
         return  this.type
-     }
+    }
+  
 }

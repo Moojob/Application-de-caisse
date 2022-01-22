@@ -1,16 +1,22 @@
 import { Caisse } from "./classes/Caisse";
 import { Etat } from "./classes/EtatDuCompte";
 import { NbreTransaction } from "./classes/NbreTransaction";
+import { RapportsTransactions } from "./classes/RapportsTransactions";
 import { Solde } from "./classes/Solde";
 import { Transaction } from "./classes/Transaction";
 
 //Interception du formulaire
 const form = document.querySelector(".formulaire-de-transaction") as HTMLFormElement;
+//Interception du button buttonViewPersonelTransaction
+const buttonViewPersonelTransaction = document.querySelector('.buttonViewPersonelTransaction') as HTMLButtonElement;
+//Interception du div container-rapportTransaction
+const containerRapportTransactions = document.querySelector('.containerRapportTransaction') as HTMLDivElement
 //Instanciations
 let maCaisse = new Caisse(0, []);
 let monSolde = new Solde(maCaisse);
 let etatDeMonCompte = new Etat(maCaisse);
 let nbreDeTransaction = new NbreTransaction(maCaisse);
+let rapportsTransactions = new RapportsTransactions(maCaisse);
 
 //Interception des Inputs du formulaire
 const type = document.querySelector("#type") as HTMLInputElement;
@@ -50,3 +56,15 @@ form.addEventListener('submit', (e: Event) => {
   raison.value = "";
   render(mesTransactions, ul);
 });
+
+
+
+buttonViewPersonelTransaction.addEventListener('click', () => {
+  if (containerRapportTransactions.classList.contains('apparition')) {
+    containerRapportTransactions.classList.remove('apparition');
+     
+  } else if (containerRapportTransactions.classList.contains('apparition')) {
+    
+  } else
+  containerRapportTransactions.classList.toggle('apparition');
+})
