@@ -37,27 +37,22 @@
         <button type="submit">Ajouter</button>
       </form>
     </header>
-
-    <div class="emballage">
+    <div>
       <h1>GESTION DE LA CAISSE</h1>
-      <!--La Liste des Transactions-->
-
-      <ul class="listes-des-transactions"><h3>Liste des transactions</h3></ul>
     </div>
-    <!-- Le Solde -->
 
+     <!-- Le Solde -->
     <div id="container-solde">
       <span class="soldes">SOLDE: </span> <span id="solde"></span>
     </div>
 
     <!-- Le Nombre Total d'Opération De Débit Effectué -->
-
     <div id="container-nbreTotalDebit">
       <span class="nbreDeDebits">NOMBRE DE DEBIT: </span>
       <span id="nbreDeDebit"></span>
     </div>
-    <!-- Le Nombre Total d'Opération De Débit Effectué -->
 
+    <!-- Le Nombre Total d'Opération De Débit Effectué -->
     <div id="container-nbreTotalCredit">
       <span class="nbreDeCredits">NOMBRE DE CREDIT: </span>
       <span id="nbreDeCredit"></span>
@@ -67,20 +62,27 @@
     <div id="container-etat">
       <span class="etats">ETAT DU COMPTE: </span> <span id="etat"></span>
     </div>
-   <!-- Button Rapports -->
+
+    <!-- Button Rapports -->
     <div id="container-buttons">
-     Aimerez-vous voir le rapport des transactions de votre personnel ?
-        <button class="buttonViewPersonelTransaction">Rapports</button>
+      Aimerez-vous voir le rapport des transactions de votre personnel ?
+      <button class="buttonViewPersonelTransaction">Rapports</button>
     </div>
+
     <!--Le Tableau Du Rapports Des Transactions -->
     <div class="containerRapportTransaction">
-     
       <table id="transactionParEmploye">
         <h3>Rapport des transactions des employé(e)s</h3>
       </table>
     </div>
 
-   
+      <!--La Liste des Transactions-->
+    <div class="emballage">
+      <ul class="listes-des-transactions">
+        <h3>Liste des transactions</h3>
+      </ul>
+    </div>
+
     <script type="module" src="app.ts"></script>
   </body>
 </html>

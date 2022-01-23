@@ -96,7 +96,7 @@ header{
     position: relative;
 }
 form{
-    min-width: 960px;
+    min-width: 100%;
     margin: 0 auto;
     text-align: center;
 }
@@ -147,6 +147,9 @@ button{
     display: block;
 }
 
+table, tr, th, td {
+    border: 1px solid black;
+  }
 table{
     border-collapse: collapse;
     margin-bottom: 20px;
@@ -159,19 +162,16 @@ table{
   }
   
   th{
-    border: 1px solid black;
     padding: 10px;
     font-weight: bolder;
     color: rgb(155, 145, 151);
 
   }
   td{
-    border: 1px solid black;
     padding: 10px;
     font-weight: bold;
     text-align: center;
    
   }
-  
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */

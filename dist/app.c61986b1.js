@@ -544,13 +544,15 @@ var rapportsTransactions = new RapportsTransactions_1.RapportsTransactions(maCai
 var type = document.querySelector("#type");
 var qui = document.querySelector('#qui');
 var montant = document.querySelector("#montant");
-var raison = document.querySelector("#raison");
-var ul = document.querySelector("ul");
+var raison = document.querySelector("#raison"); //Interception du Ul
+
+var ul = document.querySelector("ul"); //Implémentation du formulaire
+
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   var mesTransactions = new Transaction_1.Transaction(type.value, montant.valueAsNumber, qui.value, raison.value);
   maCaisse.AjoutTransaction(mesTransactions);
-  maCaisse.getEtatCompte();
+  maCaisse.getEtatCompte(); //Implémentation du render géreant le rendu de la liste des transactions
 
   var render = function render(Tr, container) {
     var li = document.createElement("li");
@@ -564,14 +566,16 @@ form.addEventListener('submit', function (e) {
     li.append(p);
     ul.append(li);
     container.append(li);
-  };
+  }; //Reset les inputs du formulaire
+
 
   var reset = 0;
   montant.valueAsNumber = reset;
   qui.value = "";
   raison.value = "";
   render(mesTransactions, ul);
-});
+}); //Implémentation du bouton de Rapport 
+
 buttonViewPersonelTransaction.addEventListener('click', function () {
   if (containerRapportTransactions.classList.contains('apparition')) {
     containerRapportTransactions.classList.remove('apparition');
@@ -605,7 +609,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52086" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61481" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
