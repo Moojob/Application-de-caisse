@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/petit-boudha/Application-De-Caisse.git"
+    "url": "git+https://github.com/Moojob/Application-de-caisse.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/petit-boudha/Application-De-Caisse/issues"
+    "url": "https://github.com/Moojob/Application-de-caisse.git/issues"
   },
-  "homepage": "https://github.com/petit-boudha/Application-De-Caisse#readme",
+  "homepage": "https://github.com/Moojob/Application-de-caisse.git#readme",
   "devDependencies": {
     "parcel-bundler": "^1.12.5",
     "typescript": "^4.5.4"
